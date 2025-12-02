@@ -8,9 +8,11 @@ app.use((req, res, next) => {
   next();
 });
 
-const sequelize = new Sequelize(
-  "mysql://test:test@152.42.169.143:3306/db_test"
-);
+const dbURI = process.env.DB_URI;
+
+const sequelize = new Sequelize(dbURI, {
+  dialect: "mysql",
+});
 
 async function getUser() {
   await sequelize.authenticate();
